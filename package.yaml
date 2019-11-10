@@ -27,6 +27,7 @@ dependencies:
 - time
 - servant
 - servant-server
+- random
 
 library:
   source-dirs: src
