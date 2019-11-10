@@ -1,5 +1,14 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE FlexibleInstances #-}
+
 module Models where
 
-data LongUrl = LongUrl { url :: String } deriving Show
+import           GHC.Generics
+import           Data.Aeson
+import           Data.Aeson.Types
 
-data ShortUrl = ShortUrl { id :: String } deriving Show
+data LongUrl = LongUrl { url :: String } deriving (Eq, Show, Generic)
+instance ToJSON LongUrl
+
+data ShortUrl = ShortUrl { id :: String } deriving (Eq, Show, Generic)
+instance ToJSON ShortUrl
