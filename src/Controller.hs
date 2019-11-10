@@ -7,12 +7,10 @@ module Controller where
 import           Data.Text
 import           Models
 import           Servant
-import           Servant.API
 
 type Api =
   -- GET: /minimize/<longUrl> -- returns shortened URL
    "minimize" :> QueryParam "longUrl" LongUrl :> Get '[JSON] ShortUrl
-
 
 app :: Application
 app = serve urlApi shortenerServer
@@ -26,4 +24,5 @@ shortenerServer :: Server Api
 shortenerServer = minimize where
 
   minimize :: Maybe LongUrl -> Handler ShortUrl
-  minimize longUrl = undefined
+  minimize Nothing        = throwError err404
+  minimize (Just longUrl) = return (ShortUrl $ pack "foo") -- implement me

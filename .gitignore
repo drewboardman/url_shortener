@@ -1,3 +1,5 @@
 .stack-work/
 urlShortener.cabal
+**.hi
+**.o
 *~

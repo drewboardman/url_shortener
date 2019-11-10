@@ -1,8 +1,8 @@
-{-# LANGUAGE DeriveGeneric         #-}
-{-# LANGUAGE GeneralisedNewtypeDeriving         #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE DeriveGeneric              #-}
+{-# LANGUAGE DuplicateRecordFields      #-}
+{-# LANGUAGE FlexibleInstances          #-}
+{-# LANGUAGE GeneralisedNewtypeDeriving #-}
+{-# LANGUAGE ScopedTypeVariables        #-}
 
 
 module Models
@@ -12,8 +12,7 @@ module Models
 where
 
 import           Data.Aeson
-import           Data.Aeson.Types
-import qualified Data.Text                     as T
+import qualified Data.Text    as T
 import           GHC.Generics
 import           Servant
 
