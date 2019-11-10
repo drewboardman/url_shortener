@@ -1,13 +1,13 @@
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DataKinds           #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE TypeOperators       #-}
 
 module Controller where
 
 import           Data.Text
 import           Models
-import           Servant.API
 import           Servant
+import           Servant.API
 
 type Api =
   -- GET: /minimize/<longUrl> -- returns shortened URL
@@ -26,4 +26,4 @@ shortenerServer :: Server Api
 shortenerServer = minimize where
 
   minimize :: Maybe LongUrl -> Handler ShortUrl
-  minimize = undefined
+  minimize longUrl = undefined

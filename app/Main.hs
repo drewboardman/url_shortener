@@ -1,6 +1,7 @@
 module Main where
 
+import           Controller
 import           Lib
 
 main :: IO ()
-main = someFunc
+main = run 8081 app

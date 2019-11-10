@@ -1,5 +1,9 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE DeriveGeneric         #-}
+{-# LANGUAGE GeneralisedNewtypeDeriving         #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE ScopedTypeVariables   #-}
+
 
 module Models
   ( LongUrl(..)
@@ -9,11 +13,13 @@ where
 
 import           Data.Aeson
 import           Data.Aeson.Types
+import qualified Data.Text                     as T
 import           GHC.Generics
+import           Servant
 
-data LongUrl = LongUrl { url :: String } deriving (Eq, Show, Generic)
+newtype LongUrl = LongUrl { longUrlText :: T.Text } deriving (Eq, Show, Generic, FromHttpApiData)
 instance ToJSON LongUrl
 instance FromJSON LongUrl
 
-data ShortUrl = ShortUrl { id :: String } deriving (Eq, Show, Generic)
+newtype ShortUrl = ShortUrl { shortUrlId :: T.Text } deriving (Eq, Show, Generic)
 instance ToJSON ShortUrl
