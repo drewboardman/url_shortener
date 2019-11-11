@@ -24,5 +24,5 @@ shortenerServer :: Server Api
 shortenerServer = minimize where
 
   minimize :: Maybe LongUrl -> Handler ShortUrl
-  minimize Nothing        = throwError err404
-  minimize (Just longUrl) = return (ShortUrl $ pack "foo") -- implement me
+  minimize Nothing  = throwError err404
+  minimize (Just _) = return (ShortUrl $ pack "foo") -- implement me

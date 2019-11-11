@@ -28,6 +28,10 @@ dependencies:
 - servant
 - servant-server
 - random
+- persistent
+- persistent-template
+- persistent-sqlite
+- wai
 
 library:
   source-dirs: src

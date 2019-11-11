@@ -8,4 +8,7 @@ minimize :: LongUrl -> IO (Either T.Text ShortUrl)
 minimize longUrl = undefined
 
 random8str :: IO String
-random8str = take 8 . randomRs ('a', 'z') <$> getStdGen
+random8str = genToStr 8 <$> getStdGen
+
+genToStr :: (RandomGen g) => Int -> g -> String
+genToStr l = take l . randomRs ('a', 'z')
