@@ -1,5 +1,7 @@
 .stack-work/
 urlShortener.cabal
 **.hi
+**.dyn_hi
+**.dyn_o
 **.o
 *~

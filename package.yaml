@@ -32,6 +32,10 @@ dependencies:
 - persistent-template
 - persistent-sqlite
 - wai
+- unliftio-core
+- mtl
+- monad-logger
+- conduit
 
 library:
   source-dirs: src
