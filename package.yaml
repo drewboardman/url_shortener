@@ -28,9 +28,6 @@ dependencies:
 - servant
 - servant-server
 - random
-- persistent
-- persistent-template
-- persistent-sqlite
 - wai
 - unliftio-core
 - mtl
