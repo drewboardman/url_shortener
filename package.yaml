@@ -3,7 +3,6 @@ version:             0.1.0.0
 github:              "drewboardman/urlShortener"
 license:             BSD3
 author:              "drew boardman"
-maintainer:          "drew.e.boardman@gmail.com"
 copyright:           "2019 drew boardman"
 
 extra-source-files:
@@ -29,6 +28,7 @@ dependencies:
 - servant-server
 - random
 - wai
+- sqlite-simple
 - unliftio-core
 - mtl
 - monad-logger

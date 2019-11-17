@@ -5,11 +5,7 @@
 {-# LANGUAGE ScopedTypeVariables        #-}
 
 
-module Models
-  ( LongUrl(..)
-  , ShortUrl(..)
-  )
-where
+module Models where
 
 import           Data.Aeson
 import qualified Data.Text    as T
@@ -22,3 +18,5 @@ instance FromJSON LongUrl
 
 newtype ShortUrl = ShortUrl { shortUrlId :: T.Text } deriving (Eq, Show, Generic)
 instance ToJSON ShortUrl
+
+newtype UrlId = UrlId T.Text deriving Show
