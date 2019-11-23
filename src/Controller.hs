@@ -31,8 +31,13 @@ shortenerServer = minimize :<|> expand where
   minimize (Just l) = do
     maybeShortened <- liftIO $ minifyLongUrl l
     case maybeShortened of
-      Just s  -> return s
+      Just s  -> pure s
       Nothing -> throwError err500
 
   expand :: Maybe ShortUrl -> Handler LongUrl
-  expand s = undefined
+  expand Nothing  = throwError err404
+  expand (Just s) = do
+    maybeLong <- liftIO $ fetchLongUrl s
+    case maybeLong of
+      Just l -> pure l
+      Nothing -> throwError err500

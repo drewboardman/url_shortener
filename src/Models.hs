@@ -11,8 +11,12 @@ import           Data.Aeson
 import qualified Data.Text                     as T
 import           GHC.Generics
 import           Servant
+import           Database.SQLite.Simple
 
 newtype LongUrl = LongUrl { longUrlText :: T.Text } deriving (Eq, Show, Generic, FromHttpApiData)
+instance FromRow LongUrl where
+  fromRow = LongUrl <$> field
+
 instance ToJSON LongUrl
 instance FromJSON LongUrl
 

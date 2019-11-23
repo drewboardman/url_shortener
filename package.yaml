@@ -33,6 +33,7 @@ dependencies:
 - mtl
 - monad-logger
 - conduit
+- listsafe
 
 library:
   source-dirs: src
