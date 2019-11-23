@@ -9,6 +9,7 @@ import           Models
 
 data LongUrlEntry = LongUrlEntry {id :: Int, url :: String } deriving Show
 
+-- you aren't using this
 instance FromRow LongUrlEntry where
   fromRow = LongUrlEntry <$> field <*> field
 
@@ -27,3 +28,6 @@ insertLongUrl l = do
   _ <- execute conn upsert $ Only (entry :: String)
   r <- query_ conn getId :: IO [RowId]
   return $ rowId <$> listToMaybe r
+
+fetchLongUrl :: Int -> IO (Maybe T.Text)
+fetchLongUrl identifier = 

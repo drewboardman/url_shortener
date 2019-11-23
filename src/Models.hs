@@ -8,7 +8,7 @@
 module Models where
 
 import           Data.Aeson
-import qualified Data.Text    as T
+import qualified Data.Text                     as T
 import           GHC.Generics
 import           Servant
 
@@ -16,7 +16,8 @@ newtype LongUrl = LongUrl { longUrlText :: T.Text } deriving (Eq, Show, Generic,
 instance ToJSON LongUrl
 instance FromJSON LongUrl
 
-newtype ShortUrl = ShortUrl { shortUrlId :: T.Text } deriving (Eq, Show, Generic)
+newtype ShortUrl = ShortUrl { fullUrl :: T.Text } deriving (Eq, Show, Generic, FromHttpApiData)
 instance ToJSON ShortUrl
+instance FromJSON ShortUrl
 
 newtype UrlId = UrlId T.Text deriving Show
