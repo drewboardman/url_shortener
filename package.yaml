@@ -32,6 +32,7 @@ dependencies:
 - unliftio-core
 - mtl
 - monad-logger
+- wai-logger
 - conduit
 - listsafe
 
