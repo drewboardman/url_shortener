@@ -29,11 +29,7 @@ shortenerServer = minimize :<|> expand where
 
   minimize :: Maybe T.Text -> Handler ShortUrl
   minimize Nothing  = throwError err404
-  minimize (Just text) = do
-    maybeShortened <- liftIO $ minifyLongUrl $ LongUrl text
-    case maybeShortened of
-      Just s  -> pure s
-      Nothing -> throwError err500
+  minimize (Just text) = liftIO $ minifyLongUrl $ LongUrl text
 
   expand :: Maybe ShortUrl -> Handler LongUrl
   expand Nothing  = throwError err404

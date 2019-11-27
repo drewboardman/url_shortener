@@ -1,3 +1,5 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module Util where
 
 import qualified Dao                           as D
@@ -6,10 +8,10 @@ import qualified Data.List.Safe                as S
 import           Models
 import           System.Random
 
-minifyLongUrl :: LongUrl -> IO (Maybe ShortUrl)
+minifyLongUrl :: LongUrl -> IO ShortUrl
 minifyLongUrl longUrl = do
   identifier <- D.insertLongUrl longUrl
-  let short = ShortUrl . toShortStr <$> identifier
+  let short = ShortUrl $ toShortStr identifier
   return short
 
 fetchLongUrl :: ShortUrl -> IO (Maybe LongUrl)

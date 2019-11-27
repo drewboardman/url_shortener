@@ -35,6 +35,7 @@ dependencies:
 - wai-logger
 - conduit
 - listsafe
+- data-serializer
 
 library:
   source-dirs: src
