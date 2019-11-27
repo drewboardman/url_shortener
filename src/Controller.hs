@@ -8,7 +8,7 @@ import           Control.Monad.IO.Class
 import qualified Data.Text as T
 import           Models
 import           Servant
-import           Util
+import           Actions
 
 type Api =
   -- GET: /minimize/<longUrl> -- returns shortened URL
@@ -29,7 +29,11 @@ shortenerServer = minimize :<|> expand where
 
   minimize :: Maybe T.Text -> Handler ShortUrl
   minimize Nothing  = throwError err404
-  minimize (Just text) = liftIO $ minifyLongUrl $ LongUrl text
+  minimize (Just text) = do
+    maybeMin <- liftIO $ minifyLongUrl $ LongUrl text
+    case maybeMin of
+      Just k -> pure k
+      Nothing -> throwError err500
 
   expand :: Maybe ShortUrl -> Handler LongUrl
   expand Nothing  = throwError err404

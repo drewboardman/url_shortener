@@ -7,7 +7,7 @@ Instructions
 * Set up database
 
 ```sql
-CREATE TABLE urls (longUrl TEXT NOT NULL, UNIQUE(longUrl));
+CREATE TABLE urls (url TEXT NOT NULL, key TEXT NOT NULL, UNIQUE(url, key));
 ```
 
 * start the server
