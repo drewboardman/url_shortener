@@ -16,9 +16,9 @@ instance FromRow RowId where
 -- TODO: use a string random for the identifier
 insertLongUrl :: LongUrl -> IO (Maybe Int)
 insertLongUrl l = do
-  conn <- open "test.db"
+  conn <- open "urls.db"
   let entry  = T.unpack $ longUrlText l
-      upsert = "INSERT or IGNORE INTO urls (str) VALUES (?)"
+      upsert = "INSERT or IGNORE INTO urls (longUrl) VALUES (?)"
       getId  = "SELECT last_insert_rowid()"
   _ <- execute conn upsert $ Only (entry :: String)
   r <- query_ conn getId :: IO [RowId]
@@ -27,7 +27,7 @@ insertLongUrl l = do
 -- how is this safe?
 fetchLongUrl :: Int -> IO (Maybe LongUrl)
 fetchLongUrl identifier = do
-  conn <- open "test.db"
+  conn <- open "urls.db"
   let select = "SELECT * FROM urls WHERE id = ?"
   results <- query conn select (Only (identifier :: Int)) :: IO [LongUrl]
   return $ listToMaybe results

@@ -5,13 +5,14 @@
 module Controller where
 
 import           Control.Monad.IO.Class
+import qualified Data.Text as T
 import           Models
 import           Servant
 import           Util
 
 type Api =
   -- GET: /minimize/<longUrl> -- returns shortened URL
-   "minimize" :> QueryParam "longUrl" LongUrl :> Get '[JSON] ShortUrl
+   "minimize" :> QueryParam "longUrl" T.Text :> Get '[JSON] ShortUrl
   -- GET: /expand/<shortUrl> -- returns the original URL
    :<|> "expand" :> QueryParam "shortUrl" ShortUrl :> Get '[JSON] LongUrl
 
@@ -26,10 +27,10 @@ urlApi = Proxy
 shortenerServer :: Server Api
 shortenerServer = minimize :<|> expand where
 
-  minimize :: Maybe LongUrl -> Handler ShortUrl
+  minimize :: Maybe T.Text -> Handler ShortUrl
   minimize Nothing  = throwError err404
-  minimize (Just l) = do
-    maybeShortened <- liftIO $ minifyLongUrl l
+  minimize (Just text) = do
+    maybeShortened <- liftIO $ minifyLongUrl $ LongUrl text
     case maybeShortened of
       Just s  -> pure s
       Nothing -> throwError err500
