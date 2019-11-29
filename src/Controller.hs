@@ -14,7 +14,7 @@ type Api =
   -- GET: /minimize/<longUrl> -- returns shortened URL
    "minimize" :> QueryParam "longUrl" T.Text :> Get '[JSON] ShortUrl
   -- GET: /expand/<shortUrl> -- returns the original URL
-   :<|> "expand" :> QueryParam "shortUrl" ShortUrl :> Get '[JSON] LongUrl
+   :<|> "expand" :> QueryParam "shortUrl" String :> Get '[JSON] LongUrl
 
 app :: Application
 app = serve urlApi shortenerServer
@@ -35,10 +35,10 @@ shortenerServer = minimize :<|> expand where
       Just k  -> pure k
       Nothing -> throwError err500
 
-  expand :: Maybe ShortUrl -> Handler LongUrl
+  expand :: Maybe String -> Handler LongUrl
   expand Nothing  = throwError err404
   expand (Just s) = do
-    maybeLong <- liftIO $ fetchLongUrl s
+    maybeLong <- liftIO $ fetchLongUrl (ShortUrl $ T.pack s)
     case maybeLong of
       Just l  -> pure l
       Nothing -> throwError err500

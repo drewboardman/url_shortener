@@ -42,6 +42,9 @@ insertLongUrl l = do
 fetchLongUrl :: T.Text -> IO (Maybe LongUrl)
 fetchLongUrl identifier = do
   conn <- open "urls.db"
+  execute_
+    conn
+    "CREATE TABLE IF NOT EXISTS urls (url TEXT NOT NULL, key TEXT NOT NULL, UNIQUE(url))"
   let select = "SELECT * FROM urls WHERE key = ?"
   results <- query conn select (Only (identifier :: T.Text)) :: IO [LongUrlRow]
   return $ LongUrl . url <$> listToMaybe results
