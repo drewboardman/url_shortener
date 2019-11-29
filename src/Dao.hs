@@ -21,7 +21,6 @@ instance FromRow LongUrlRow where
 instance FromRow RowId where
   fromRow = RowId <$> field
 
--- TODO: use a string random for the identifier
 insertLongUrl :: LongUrl -> IO (Maybe T.Text)
 insertLongUrl l = do
   conn <- open "urls.db"
@@ -29,6 +28,7 @@ insertLongUrl l = do
     conn
     "CREATE TABLE IF NOT EXISTS urls (url TEXT NOT NULL, key TEXT NOT NULL, UNIQUE(url))"
   rand <- T.pack <$> random8str
+  -- TODO: what happens if the rand isn't unique?
   let urlToInsert = longUrlText l
       upsert      = "INSERT or IGNORE INTO urls (url, key) VALUES (?, ?)"
   _    <- execute conn upsert $ LongUrlRow urlToInsert rand
@@ -36,16 +36,15 @@ insertLongUrl l = do
     query conn
           "SELECT key FROM urls WHERE url = ?"
           (Only (urlToInsert :: T.Text)) :: IO [Only String]
-  -- need to check if unique, fine for now
   return $ T.pack . fromOnly <$> listToMaybe rows
 
 -- how is this safe?
-fetchLongUrl :: Int -> IO (Maybe LongUrl)
+fetchLongUrl :: T.Text -> IO (Maybe LongUrl)
 fetchLongUrl identifier = do
   conn <- open "urls.db"
-  let select = "SELECT * FROM urls WHERE rowId = ?"
-  results <- query conn select (Only (identifier :: Int)) :: IO [LongUrl]
-  return $ listToMaybe results
+  let select = "SELECT * FROM urls WHERE key = ?"
+  results <- query conn select (Only (identifier :: T.Text)) :: IO [LongUrlRow]
+  return $ LongUrl . url <$> listToMaybe results
 
 random8str :: IO String
 random8str = genToStr 8 <$> newStdGen

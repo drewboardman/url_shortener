@@ -4,11 +4,11 @@
 
 module Controller where
 
+import           Actions
 import           Control.Monad.IO.Class
-import qualified Data.Text as T
+import qualified Data.Text              as T
 import           Models
 import           Servant
-import           Actions
 
 type Api =
   -- GET: /minimize/<longUrl> -- returns shortened URL
@@ -32,7 +32,7 @@ shortenerServer = minimize :<|> expand where
   minimize (Just text) = do
     maybeMin <- liftIO $ minifyLongUrl $ LongUrl text
     case maybeMin of
-      Just k -> pure k
+      Just k  -> pure k
       Nothing -> throwError err500
 
   expand :: Maybe ShortUrl -> Handler LongUrl
@@ -40,5 +40,5 @@ shortenerServer = minimize :<|> expand where
   expand (Just s) = do
     maybeLong <- liftIO $ fetchLongUrl s
     case maybeLong of
-      Just l -> pure l
+      Just l  -> pure l
       Nothing -> throwError err500

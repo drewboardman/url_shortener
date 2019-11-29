@@ -23,5 +23,5 @@ fetchLongUrl shortUrl = do
 toShortStr :: T.Text -> T.Text
 toShortStr randIdStr = T.pack "drew.io/" `T.append` randIdStr
 
-parseShort :: ShortUrl -> Maybe Int
-parseShort t = read . T.unpack <$> S.last (T.split (== '/') (fullUrl t))
+parseShort :: ShortUrl -> Maybe T.Text
+parseShort t = S.last (T.split (== '/') (fullUrl t))
