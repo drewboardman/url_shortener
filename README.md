@@ -14,14 +14,14 @@ stack run
 
 ```
 $ curl localhost:8081/minimize\?longUrl\="www.google.com"
-{"fullUrl":"drew.io/gotrkjis"}%
+{"shortUrlValue":"drew.io/gotrkjis"}%
 ```
 
 * Expand a shortened URL
 
 ```
 $ curl localhost:9000/expand\?shortUrl\=drew.io%2Fgotrkjis
-{"longUrlText":"www.facebook.com"}%
+{"longUrlValue":"www.facebook.com"}%
 ```
 
 TODO
