@@ -13,7 +13,7 @@ stack run
 * Shorten a url
 
 ```
-$ curl localhost:8081/minimize\?longUrl\="www.google.com"
+$ curl localhost:9000/minimize\?longUrl\="www.google.com"
 {"shortUrlValue":"drew.io/gotrkjis"}%
 ```
 
