@@ -23,3 +23,8 @@ $ curl localhost:8081/minimize\?longUrl\="www.google.com"
 $ curl localhost:9000/expand\?shortUrl\=drew.io%2Fgotrkjis
 {"longUrlText":"www.facebook.com"}%
 ```
+
+TODO
+-------
+* Right now `/expand` requests that aren't found return 500, this should be 4XX.
+* Client
