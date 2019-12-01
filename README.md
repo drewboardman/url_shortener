@@ -4,12 +4,6 @@ urlShortener
 
 Instructions
 ------------
-* Set up database
-
-```sql
-CREATE TABLE urls (url TEXT NOT NULL, key TEXT NOT NULL, UNIQUE(url, key));
-```
-
 * start the server
 
 ```
@@ -19,5 +13,13 @@ stack run
 * Shorten a url
 
 ```
-curl localhost:8081/minimize\?longUrl\="www.google.com"
+$ curl localhost:8081/minimize\?longUrl\="www.google.com"
+{"fullUrl":"drew.io/gotrkjis"}%
+```
+
+* Expand a shortened URL
+
+```
+$ curl localhost:9000/expand\?shortUrl\=drew.io%2Fgotrkjis
+{"longUrlText":"www.facebook.com"}%
 ```

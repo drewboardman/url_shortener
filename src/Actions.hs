@@ -2,9 +2,9 @@
 
 module Actions where
 
-import qualified Dao                           as D
-import qualified Data.Text                     as T
-import qualified Data.List.Safe                as S
+import qualified Dao            as D
+import qualified Data.List.Safe as S
+import qualified Data.Text      as T
 import           Models
 
 minifyLongUrl :: LongUrl -> IO (Maybe ShortUrl)
@@ -24,4 +24,4 @@ toShortStr :: T.Text -> T.Text
 toShortStr randIdStr = T.pack "drew.io/" `T.append` randIdStr
 
 parseShort :: ShortUrl -> Maybe T.Text
-parseShort t = S.last (T.split (== '/') (fullUrl t))
+parseShort t = S.last (T.split (== '/') (shortUrlValue t))

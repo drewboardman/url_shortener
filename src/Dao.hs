@@ -1,10 +1,10 @@
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-} -- this is for the queries
 
 module Dao where
 
 import           Data.Maybe
-import qualified Data.Text                     as T
+import qualified Data.Text              as T
 import           Database.SQLite.Simple
 import           Models
 import           System.Random
@@ -29,7 +29,7 @@ insertLongUrl l = do
     "CREATE TABLE IF NOT EXISTS urls (url TEXT NOT NULL, key TEXT NOT NULL, UNIQUE(url))"
   rand <- T.pack <$> random8str
   -- TODO: what happens if the rand isn't unique?
-  let urlToInsert = longUrlText l
+  let urlToInsert = longUrlValue l
       upsert      = "INSERT or IGNORE INTO urls (url, key) VALUES (?, ?)"
   _    <- execute conn upsert $ LongUrlRow urlToInsert rand
   rows <-
